@@ -1,4 +1,3 @@
-import './App.css';
 import { useMap } from 'react-leaflet';
 import 'leaflet-routing-machine';
 import { useEffect } from 'react';

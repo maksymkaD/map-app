@@ -2,8 +2,8 @@ import './App.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet-routing-machine';
 import React, { useState } from 'react';
-import Routing from './Routing';
-import InputPoint from './InputPoint';
+import Routing from './components/Routing';
+import InputPoint from './components/InputPoint';
 
 const App = ({ initialStartPoint, initialEndPoint }) => {
   const [startPoint, setStartPoint] = useState(initialStartPoint);
