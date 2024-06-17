@@ -32,36 +32,31 @@ const Routing = ({ startPoint, endPoint }) => {
   return null;
 };
 
-function App() {
-  const [startPoint, setStartPoint] = useState([50.4501, 30.5234]);
-  const [endPoint, setEndPoint] = useState([50.4501, 30.5234]);
-
-  const handleStartPointChange = (event) => {
+const InputPoint = ({ label, point, setPoint }) => {
+  const handleChange = (event) => {
     const { value } = event.target;
     const [lat, lng] = value.split(',');
     if (isNaN(lat) || isNaN(lng)) return;
-    setStartPoint([Number(lat), Number(lng)]);
-  };
-
-  const handleEndPointChange = (event) => {
-    const { value } = event.target;
-    const [lat, lng] = value.split(',');
-    if (isNaN(lat) || isNaN(lng)) return;
-    setEndPoint([Number(lat), Number(lng)]);
+    setPoint([Number(lat), Number(lng)]);
   };
 
   return (
     <div>
+      <label htmlFor={label}>{label}:</label>
+      <input type="text" id={label} value={point.join(',')} onChange={handleChange} />
+    </div>
+  );
+};
+
+const App = ({ initialStartPoint, initialEndPoint }) => {
+  const [startPoint, setStartPoint] = useState(initialStartPoint);
+  const [endPoint, setEndPoint] = useState(initialEndPoint);
+  return (
+    <div>
       <h1>Path Finder</h1>
-      <div>
-        <label htmlFor="startPoint">Start Point:</label>
-        <input type="text" id="startPoint" value={startPoint.join(',')} onChange={handleStartPointChange} />
-      </div>
-      <div>
-        <label htmlFor="endPoint">End Point:</label>
-        <input type="text" id="endPoint" value={endPoint.join(',')} onChange={handleEndPointChange} />
-      </div>
-      <MapContainer center={startPoint} zoom={13} scrollWheelZoom={false} style={{ height: '400px', width: '100%' }}>
+      <InputPoint label="Start Point" point={startPoint} setPoint={setStartPoint} />
+      <InputPoint label="End Point" point={endPoint} setPoint={setEndPoint} />
+      <MapContainer className='Map' center={startPoint} >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
