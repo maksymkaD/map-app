@@ -6,14 +6,14 @@ import 'leaflet-routing-machine';
 import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 
-const Routing = ({ startPoint, endPoint }) => {
+const Routing = ({ points }) => {
   const map = useMap();
 
   useEffect(() => {
-    if (!startPoint || !endPoint) return;
+    if(points.length < 2) return;
     
     const routingControl = L.Routing.control({
-      waypoints: [L.latLng(startPoint), L.latLng(endPoint)],
+      waypoints: [...points],
       routeWhileDragging: true,
       createMarker: () => null,
       lineOptions: {
@@ -27,7 +27,7 @@ const Routing = ({ startPoint, endPoint }) => {
       if(!map || !routingControl) return;
       return map.removeControl(routingControl)
     };
-  }, [map, startPoint, endPoint]);
+  }, [map, points]);
 
   return null;
 };
@@ -67,7 +67,7 @@ const App = ({ initialStartPoint, initialEndPoint }) => {
         <Marker position={endPoint}>
           <Popup>End Point</Popup>
         </Marker>
-        <Routing startPoint={startPoint} endPoint={endPoint} />
+        <Routing points={[startPoint,endPoint]} />
       </MapContainer>
     </div>
   );
