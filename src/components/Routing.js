@@ -3,11 +3,11 @@ import 'leaflet-routing-machine';
 import { useEffect } from 'react';
 import L from 'leaflet';
 
-const Routing = ({ points }) => {
+const Routing = ({ points, totalPoints=2}) => {
     const map = useMap();
 
     useEffect(() => {
-        if (points.length < 2) return;
+        if (points.length < totalPoints) return;
 
         const routingControl = L.Routing.control({
             waypoints: [...points],
