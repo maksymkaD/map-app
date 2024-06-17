@@ -24,7 +24,7 @@ const Routing = ({ points, totalPoints=2}) => {
             if (!map || !routingControl) return;
             return map.removeControl(routingControl)
         };
-    }, [map, points]);
+    }, [map, points, totalPoints]);
 
     return null;
 };
